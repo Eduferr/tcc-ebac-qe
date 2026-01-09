@@ -5,3 +5,4 @@ node_modules/
 /mobile/app/
 cypress/screenshots/
 **/*-results/
+performance/reports/**/*-summary.json
