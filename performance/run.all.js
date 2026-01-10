@@ -10,8 +10,14 @@
 // - Evita erros ao tentar executar múltiplos arquivos diretamente no GitHub Actions
 // ======================================================
 
-// Cenário de carga para autenticação (login)
+// Importação dos cenários
 import './run.login.js';
-
-// Cenário de carga para consulta de produtos
 import './run.produto.get.js';
+
+// ------------------------------------------------------
+// Função default obrigatória do k6
+// Os cenários reais são definidos nos arquivos importados
+// ------------------------------------------------------
+export default function () {
+  // Execução controlada exclusivamente via scenarios
+}
