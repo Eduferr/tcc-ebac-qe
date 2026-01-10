@@ -1,0 +1,162 @@
+# =========================================================
+# EBAC Shop – Quality Assurance CI Pipeline
+# Projeto TCC EBAC QE
+# =========================================================
+# Este workflow centraliza a execução dos testes:
+# - UI (Cypress)
+# - API (Cucumber)
+# - Performance (k6)
+# - Mobile (Appium) - Não incluso no CI
+#
+# Relatórios Allure são:
+# - Gerados no runner
+# - Disponibilizados como Artifacts
+# - Publicados via GitHub Pages (branch gh-pages)
+# =========================================================
+
+name: EBAC Shop - Pipeline
+
+# ---------------------------------------------------------
+# Gatilhos
+# ---------------------------------------------------------
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+# ---------------------------------------------------------
+# Jobs
+# ---------------------------------------------------------
+jobs:
+
+  # ======================================================
+  # UI TESTS - Cypress
+  # ======================================================
+  ui-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run UI Tests (Cypress)
+        continue-on-error: true
+        run: npm run test:ui
+        env:
+          BASE_URL: ${{ secrets.BASE_URL }}
+          CYPRESS_USER: ${{ secrets.CYPRESS_USER }}
+          CYPRESS_PASSWORD: ${{ secrets.CYPRESS_PASSWORD }}
+
+      - name: Generate Allure UI Report
+        run: npm run report:ui
+
+      - name: Upload Allure UI Report (Artifact)
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-ui-report
+          path: allure/ui-tests/ui-report
+
+      - name: Publish Allure UI Report to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: allure/ui-tests/ui-report
+          destination_dir: ui
+
+  # ======================================================
+  # API TESTS - Cucumber
+  # ======================================================
+  api-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run API Tests (Cucumber)
+        continue-on-error: true
+        run: npm run test:api
+        env:
+          BASE_URL: ${{ secrets.BASE_URL }}
+          BASIC_AUTH: ${{ secrets.BASIC_AUTH }}
+
+      - name: Generate Allure API Report
+        run: npm run report:api
+
+      - name: Upload Allure API Report (Artifact)
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-api-report
+          path: allure/api-tests/api-report
+
+      - name: Publish Allure API Report to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: allure/api-tests/api-report
+          destination_dir: api
+
+  # ======================================================
+  # PERFORMANCE TESTS - k6
+  # ======================================================
+  performance-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install k6
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y k6
+
+      - name: Run All Performance Tests (k6)
+        run: npm run test:perf:all
+        env:
+          BASE_URL: ${{ secrets.BASE_URL }}
+
+      - name: Upload Performance Reports (Artifact)
+        uses: actions/upload-artifact@v4
+        with:
+          name: k6-performance-reports
+          path: performance/reports
+
+      - name: Publish Performance Reports to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: performance/reports
+          destination_dir: performance
+
+# =========================================================
+# RESULTADO FINAL NO GITHUB PAGES:
+#
+# https://<usuario>.github.io/<repositorio>/
+# ├── ui/
+# ├── api/
+# └── performance/
+#
+# OBS:
+# - Apenas HTML final é publicado
+# - Resultados brutos (*-results) NÃO são versionados
+# =========================================================
