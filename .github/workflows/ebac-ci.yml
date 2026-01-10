@@ -14,26 +14,16 @@
 # - Publicados via GitHub Pages (branch gh-pages)
 # =========================================================
 
-name: EBAC Shop - Pipeline
+name: EBAC Shop – Pipeline de Qualidade
 
-# ---------------------------------------------------------
-# Permissão necessária para que o GitHub Actions possa
-# publicar relatórios automaticamente na branch gh-pages
-# ---------------------------------------------------------
 permissions:
   contents: write
 
-# ---------------------------------------------------------
-# Gatilhos
-# ---------------------------------------------------------
 on:
   push:
     branches: [ main ]
   workflow_dispatch:
 
-# ---------------------------------------------------------
-# Jobs
-# ---------------------------------------------------------
 jobs:
 
   # ======================================================
@@ -113,7 +103,7 @@ jobs:
           name: allure-api-report
           path: allure/api-tests/api-report
 
-      - name: Publish Allure API Report to GitHub Pages
+      - name: Publica relatório Allure de API no GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -125,46 +115,62 @@ jobs:
   # PERFORMANCE TESTS - k6
   # ======================================================
   performance-tests:
+    name: Testes de Performance – k6
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout do repositório
         uses: actions/checkout@v4
 
       # --------------------------------------------------
       # Permissão para execução dos scripts no Linux
       # --------------------------------------------------
-      - name: Grant execute permission to performance scripts
+      - name: Conceder permissão de execução aos scripts de performance
         run: chmod +x performance/*.js
 
       # --------------------------------------------------
-      # Execução dos testes de performance:
-      # Roda TODOS os cenários de performance usando
-      # a action oficial do Grafana k6
+      # Execução dos testes de performance
       # --------------------------------------------------
-      - name: Run All Performance Tests (k6)
+      - name: Executar todos os testes de performance (k6)
         uses: grafana/k6-action@v0.3.0
         with:
           filename: performance/run.all.js
         env:
           BASE_URL: ${{ secrets.BASE_URL }}
 
-      - name: Upload Performance Reports (Artifact)
+      # --------------------------------------------------
+      # Publicação GitHub Pages – Login
+      # --------------------------------------------------
+      - name: Publicar relatório de performance – Login
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: performance/reports/login
+          destination_dir: performance/login
+
+      # --------------------------------------------------
+      # Publicação GitHub Pages – Produto
+      # --------------------------------------------------
+      - name: Publicar relatório de performance – Produto
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: performance/reports/produto
+          destination_dir: performance/produto
+
+      # --------------------------------------------------
+      # Artifacts (backup técnico)
+      # --------------------------------------------------
+      - name: Enviar relatório de performance – Login (Artifact)
         uses: actions/upload-artifact@v4
         with:
-          name: k6-performance-reports
-          path: performance/reports
+          name: k6-performance-login
+          path: performance/reports/login
 
-
-# =========================================================
-# RESULTADO FINAL NO GITHUB PAGES:
-#
-# https://<usuario>.github.io/<repositorio>/
-# ├── ui/
-# ├── api/
-# └── performance/
-#
-# OBS:
-# - Apenas HTML final é publicado
-# - Resultados brutos (*-results) NÃO são versionados
-# =========================================================
+      - name: Enviar relatório de performance – Produto (Artifact)
+        uses: actions/upload-artifact@v4
+        with:
+          name: k6-performance-produto
+          path: performance/reports/produto
