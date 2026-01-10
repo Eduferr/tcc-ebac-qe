@@ -145,9 +145,7 @@ jobs:
       - name: Run All Performance Tests (k6)
         uses: grafana/k6-action@v0.3.0
         with:
-          filename: |
-            performance/run.login.js
-            performance/run.produto.get.js
+          filename: performance/run.all.js
         env:
           BASE_URL: ${{ secrets.BASE_URL }}
 
