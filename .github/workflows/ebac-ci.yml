@@ -132,8 +132,15 @@ jobs:
         uses: actions/checkout@v4
 
       # --------------------------------------------------
+      # Permissão para execução dos scripts no Linux
+      # --------------------------------------------------
+      - name: Grant execute permission to performance scripts
+        run: chmod +x performance/*.js
+
+      # --------------------------------------------------
       # Execução dos testes de performance:
-      # Roda TODOS os cenários de performance usando a action oficial do Grafana k6
+      # Roda TODOS os cenários de performance usando
+      # a action oficial do Grafana k6
       # --------------------------------------------------
       - name: Run All Performance Tests (k6)
         uses: grafana/k6-action@v0.3.0
@@ -149,6 +156,7 @@ jobs:
         with:
           name: k6-performance-reports
           path: performance/reports
+
 
 # =========================================================
 # RESULTADO FINAL NO GITHUB PAGES:
