@@ -17,6 +17,13 @@
 name: EBAC Shop - Pipeline
 
 # ---------------------------------------------------------
+# Permissão necessária para que o GitHub Actions possa
+# publicar relatórios automaticamente na branch gh-pages
+# ---------------------------------------------------------
+permissions:
+  contents: write
+
+# ---------------------------------------------------------
 # Gatilhos
 # ---------------------------------------------------------
 on:
@@ -42,7 +49,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'
 
       - name: Install dependencies
         run: npm install
@@ -85,7 +92,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'
 
       - name: Install dependencies
         run: npm install
@@ -124,13 +131,16 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install k6
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y k6
-
+      # --------------------------------------------------
+      # Execução dos testes de performance:
+      # Roda TODOS os cenários de performance usando a action oficial do Grafana k6
+      # --------------------------------------------------
       - name: Run All Performance Tests (k6)
-        run: npm run test:perf:all
+        uses: grafana/k6-action@v0.3.0
+        with:
+          filename: |
+            performance/run.login.js
+            performance/run.produto.get.js
         env:
           BASE_URL: ${{ secrets.BASE_URL }}
 
@@ -139,14 +149,6 @@ jobs:
         with:
           name: k6-performance-reports
           path: performance/reports
-
-      - name: Publish Performance Reports to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: gh-pages
-          publish_dir: performance/reports
-          destination_dir: performance
 
 # =========================================================
 # RESULTADO FINAL NO GITHUB PAGES:
