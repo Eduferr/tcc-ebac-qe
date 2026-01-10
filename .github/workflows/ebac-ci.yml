@@ -2,22 +2,21 @@
 # EBAC Shop – Quality Assurance CI Pipeline
 # Projeto TCC EBAC QE
 # =========================================================
-# Este workflow centraliza a execução dos testes:
-# - UI (Cypress)
-# - API (Cucumber)
+# Executa testes automatizados de:
+# - UI (Cucumber + Cypress)
+# - API (Cucumber + Supertest)
 # - Performance (k6)
-# - Mobile (Appium) - Não incluso no CI
 #
-# Relatórios Allure são:
-# - Gerados no runner
-# - Disponibilizados como Artifacts
-# - Publicados via GitHub Pages (branch gh-pages)
+# Relatórios:
+# - UI e API: Allure
+# - Performance: HTML gerado pelo k6
+# - Todos publicados no GitHub Pages (gh-pages)
 # =========================================================
 
 name: EBAC Shop – Pipeline de Qualidade
 
 permissions:
-  contents: write
+  contents: write # necessário para publicar no gh-pages
 
 on:
   push:
@@ -27,7 +26,7 @@ on:
 jobs:
 
   # ======================================================
-  # UI TESTS - Cypress
+  # UI TESTS - Cucumber + Cypress
   # ======================================================
   ui-tests:
     runs-on: ubuntu-latest
@@ -41,10 +40,10 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Install dependencies
+      - name: Instalar dependências
         run: npm install
 
-      - name: Run UI Tests (Cypress)
+      - name: Executar testes UI
         continue-on-error: true
         run: npm run test:ui
         env:
@@ -52,16 +51,16 @@ jobs:
           CYPRESS_USER: ${{ secrets.CYPRESS_USER }}
           CYPRESS_PASSWORD: ${{ secrets.CYPRESS_PASSWORD }}
 
-      - name: Generate Allure UI Report
+      - name: Gerar relatório Allure UI
         run: npm run report:ui
 
-      - name: Upload Allure UI Report (Artifact)
+      - name: Salvar relatório UI (Artifact)
         uses: actions/upload-artifact@v4
         with:
           name: allure-ui-report
           path: allure/ui-tests/ui-report
 
-      - name: Publish Allure UI Report to GitHub Pages
+      - name: Publicar relatório UI (GitHub Pages)
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -70,7 +69,7 @@ jobs:
           destination_dir: ui
 
   # ======================================================
-  # API TESTS - Cucumber
+  # API TESTS - Cucumber + Supertest
   # ======================================================
   api-tests:
     runs-on: ubuntu-latest
@@ -84,20 +83,20 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Install dependencies
+      - name: Instalar dependências
         run: npm install
 
-      - name: Run API Tests (Cucumber)
+      - name: Executar testes API
         continue-on-error: true
         run: npm run test:api
         env:
           BASE_URL: ${{ secrets.BASE_URL }}
           BASIC_AUTH: ${{ secrets.BASIC_AUTH }}
 
-      - name: Generate Allure API Report
+      - name: Gerar relatório Allure API
         run: npm run report:api
 
-      - name: Upload Allure API Report (Artifact)
+      - name: Salvar relatório API (Artifact)
         uses: actions/upload-artifact@v4
         with:
           name: allure-api-report
@@ -174,3 +173,11 @@ jobs:
         with:
           name: k6-performance-produto
           path: performance/reports/produto
+
+# =========================================================
+# OBSERVAÇÕES FINAIS:
+#
+# - Mobile (Appium) - Não incluso no CI por está configurado para teste em aparelho físico.
+# - Variáveis sensíveis são gerenciadas via GitHub Secrets.
+# - A arquitetura permite fácil expansão futura.
+# =========================================================
