@@ -1,5 +1,5 @@
 // Importa o step Then do Cucumber (BDD)
-const { Then } = require('@cucumber/cucumber');
+const { Given, When, Then } = require('@cucumber/cucumber');
 // Importa o expect do Chai para asserções
 const { expect } = require('chai');
 // Importa o helper responsável por validar o contrato do cupom
