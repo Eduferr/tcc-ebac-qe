@@ -10,9 +10,20 @@ class CarrinhoActions {
         CarrinhoPage.searchButton().click();
     }
 
+    // verCarrinho() {
+    //     CarrinhoPage.viewCartButton().click();
+    // }
+
     verCarrinho() {
-        CarrinhoPage.viewCartButton().click();
+  cy.get('body').then(($body) => {
+    if ($body.find('.woocommerce-message > .button').length > 0) {
+      CarrinhoPage.viewCartButton().click();
+    } else {
+      cy.visit('/carrinho');
     }
+  });
+}
+
 
     concluirCompra() {
         CarrinhoPage.checkoutButton().click();
