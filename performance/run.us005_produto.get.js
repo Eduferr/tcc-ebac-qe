@@ -1,4 +1,4 @@
-import produtoScenario from './scenarios/produto.get.js';
+import produtoScenario from './scenarios/us005_produto.get.js';
 import { produtoOptions } from './config/produto.options.js';
 
 // Relatórios
