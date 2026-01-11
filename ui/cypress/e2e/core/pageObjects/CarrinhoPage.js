@@ -34,7 +34,7 @@ class CarrinhoPage {
     }
 
     viewCartButton() {
-        return cy.get('.woocommerce-message > .button wc-forward', { timeout: 2000 });
+        return cy.get('.woocommerce-message > .button', { timeout: 4000 });
     }
 
     checkoutButton() {

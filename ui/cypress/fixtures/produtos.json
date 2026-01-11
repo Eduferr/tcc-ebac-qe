@@ -3,13 +3,13 @@
     "nome": "Orion Two-Tone Fitted Jacket",
     "tamanho": "S",
     "cor": "Yellow",
-    "quantidade": 5
+    "quantidade": 0
   },
     {
     "nome": "Lando Gym Jacket",
     "tamanho": "M",
     "cor": "Green",
-    "quantidade": 5
+    "quantidade": 1
   },
   {
     "nome": "Ingrid Running Jacket",
@@ -21,13 +21,13 @@
     "nome": "Marco Lightweight Active Hoodie",
     "tamanho": "XL",
     "cor": "Lavender",
-    "quantidade": 5
+    "quantidade": 3
   },
   {
     "nome": "Autumn Pullie",
     "tamanho": "XL",
     "cor": "Green",
-    "quantidade": 2
+    "quantidade": 4
   },
   {
     "nome": "Livingston All-Purpose Tight",
@@ -39,6 +39,6 @@
     "nome": "Typhon Performance Fleece-lined Jacket",
     "tamanho": "M",
     "cor": "Red",
-    "quantidade": 2
+    "quantidade": 6
   }
 ]
