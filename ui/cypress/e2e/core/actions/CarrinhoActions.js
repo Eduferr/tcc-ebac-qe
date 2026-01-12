@@ -15,10 +15,11 @@ class CarrinhoActions {
     // }
 
     verCarrinho() {
-        cy.visit('/carrinho');
-        // garante que carregou algo do carrinho
-        cy.get('body', { timeout: 15000 }).should('be.visible');
+        cy.visit('/carrinho', { failOnStatusCode: false });
+        cy.location('pathname', { timeout: 15000 }).should('include', '/carrinho');
+        cy.get('form.woocommerce-cart-form, .cart_totals', { timeout: 15000 }).should('exist');
     }
+
 
 
     concluirCompra() {
