@@ -16,9 +16,15 @@ class CarrinhoActions {
 
     verCarrinho() {
         cy.visit('/carrinho', { failOnStatusCode: false });
-        cy.location('pathname', { timeout: 15000 }).should('include', '/carrinho');
-        cy.get('form.woocommerce-cart-form, .cart_totals', { timeout: 15000 }).should('exist');
+
+        cy.location('pathname', { timeout: 15000 })
+            .should('include', '/carrinho');
+
+        // âncora REAL do carrinho
+        cy.get('form.woocommerce-cart-form', { timeout: 15000 })
+            .should('exist');
     }
+
 
 
 
@@ -53,8 +59,24 @@ class CarrinhoActions {
     // Fluxos compostos
     // =========================
 
+    // adicionarProdutos(produtos, posicoes) {
+    //     posicoes.forEach(({ posicao, quantidade }) => {
+    //         if (quantidade <= 0) return;
+
+    //         const produtoAtual = produtos[posicao];
+
+    //         this.buscarProduto(produtoAtual.nome);
+    //         this.selecionarCaracteristicas(
+    //             produtoAtual.tamanho,
+    //             produtoAtual.cor,
+    //             quantidade
+    //         );
+    //         this.adicionarAoCarrinho();
+    //     });
+    // }
+
     adicionarProdutos(produtos, posicoes) {
-        posicoes.forEach(({ posicao, quantidade }) => {
+        cy.wrap(posicoes).each(({ posicao, quantidade }) => {
             if (quantidade <= 0) return;
 
             const produtoAtual = produtos[posicao];
@@ -66,8 +88,12 @@ class CarrinhoActions {
                 quantidade
             );
             this.adicionarAoCarrinho();
+
+            // âncora real de estado
+            CarrinhoPage.successMessage().should('be.visible');
         });
     }
+
 
     // =========================
     // Validações de regras de negócio
