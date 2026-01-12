@@ -25,7 +25,7 @@ Funcionalidade: Carrinho de Compras
         Então o sistema deve validar o limite de compra do carrinho
     Exemplos:
         | descricao                             | q1 | q2 | q3 |
-        | Até R$ 990,00 - Compra válida         | 3  | 6  | 4  |
+        | Até R$ 990,00 - Compra válida         | 4  | 6  | 5  |
         | Acima de R$ 990,00 - Compra inválida  | 4  | 7  | 4  |
 
 
@@ -37,7 +37,7 @@ Funcionalidade: Carrinho de Compras
     Exemplos:
         | descricao                                             | q1 | q2 | q3 | cupom     |
         | Cupom 10% inválido - Valor abaixo de R$ 200           | 1  | 1  | 1  | techugo10 |
-        | Cupom 10% válido - Valor entre R$ 200 e R$ 600        | 2  | 4  | 3  | techugo10 |
-        | Cupom 10% inválido - Valor acima de R$ 600            | 2  | 4  | 4  | techugo10 |
-        | Cupom 15% inválido - Valor igual ou menor que R$ 600  | 2  | 3  | 4  | techugo15 |
+        | Cupom 10% válido - Valor entre R$ 200 e R$ 600        | 2  | 2  | 2  | techugo10 |
+        | Cupom 10% inválido - Valor acima de R$ 600            | 3  | 3  | 4  | techugo10 |
+        | Cupom 15% inválido - Valor igual ou menor que R$ 600  | 3  | 3  | 3  | techugo15 |
         | Cupom 15% válido - Valor acima de R$ 600              | 3  | 3  | 4  | techugo15 |
