@@ -3,7 +3,7 @@ const { Given, When, Then } = require('@cucumber/cucumber');
 // Biblioteca de asserções
 const { expect } = require('chai');
 // Camada de serviço (requisições HTTP)
-const CuponsService = require('../../services/cupons.service');
+const CuponsService = require('../../../services/cupons.service');  
 // Helpers e Schemas de contrato
 const { validarContratoCupom } = require('../../../helpers/contratoCupom.helper');
 const { cupomSchema } = require('../../../schemas/cupom.schema');
