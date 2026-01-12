@@ -242,68 +242,64 @@ class CarrinhoActions {
     // }
 
     validarAplicacaoCupom(cupom) {
-        cy.get('body').then(($body) => {
 
-            const temMensagem = $body.find('.woocommerce-message, .woocommerce-error').length > 0;
+        CarrinhoPage.noticeWrapper()
+            .should('exist')
+            .within(() => {
 
-            // ======================================================
-            // CASO 1 — WooCommerce exibiu mensagem
-            // ======================================================
-            if (temMensagem) {
-                CarrinhoPage.noticeMessage()
-                    .should('be.visible')
-                    .then(($el) => {
+                // =========================
+                // ERRO DE CUPOM
+                // =========================
+                cy.get('ul.woocommerce-error > li').then(($li) => {
 
-                        const texto = $el.text();
+                    if ($li.length) {
 
-                        // ---------- Cupom aplicado com sucesso ----------
-                        if ($el.hasClass('woocommerce-message')) {
-                            expect(texto).to.contain(
-                                'Código de cupom aplicado com sucesso'
-                            );
-                            return;
-                        }
+                        // valida estrutura
+                        cy.wrap($li)
+                            .should('contain.text', 'O valor mínimo do pedido');
 
-                        // ---------- Cupom não aplicado por divergência de valores ----------
-                        if ($el.hasClass('woocommerce-error')) {
+                        // valida valor monetário (robusto)
+                        cy.wrap($li)
+                            .find('span.woocommerce-Price-amount.amount')
+                            .invoke('text')
+                            .then((valorTexto) => {
 
-                            if (cupom === 'techugo10') {
-                                expect(texto).to.satisfy((msg) =>
-                                    msg.includes('O valor mínimo do pedido para este cupom é R$200,00') ||
-                                    msg.includes('O valor máximo que pode ser gasto para este cupom é de R$600,00')
+                                const valor = Number(
+                                    valorTexto
+                                        .replace(/\s/g, '')
+                                        .replace('R$', '')
+                                        .replace(/\./g, '')
+                                        .replace(',', '.')
                                 );
-                                return;
-                            }
 
-                            if (cupom === 'techugo15') {
-                                expect(texto).to.contain(
-                                    'O valor mínimo do pedido para este cupom é R$601,00'
-                                );
-                                return;
-                            }
-                        }
+                                if (cupom === 'techugo10') {
+                                    expect(valor).to.eq(200);
+                                }
 
-                        throw new Error(
-                            `Mensagem inesperada retornada pelo sistema ao aplicar o cupom "${cupom}". Texto exibido: ${texto}`
-                        );
-                    });
+                                if (cupom === 'techugo15') {
+                                    expect(valor).to.eq(601);
+                                }
+                            });
 
-                return;
-            }
-
-            // ======================================================
-            // CASO 2 — WooCommerce NÃO exibiu mensagem (comportamento silencioso)
-            // ======================================================
-            // Regra: cupom inválido → total NÃO deve ser alterado
-            CarrinhoPage.valorTotalCarrinho()
-                .invoke('text')
-                .then((valor) => {
-                    cy.log(
-                        `Cupom "${cupom}" não aplicado. WooCommerce não exibiu mensagem. Total mantido: ${valor}`
-                    );
+                        return;
+                    }
                 });
-        });
+
+                // =========================
+                // SUCESSO DE CUPOM
+                // =========================
+                cy.get('div.woocommerce-message').then(($msg) => {
+
+                    if ($msg.length) {
+                        expect($msg.text())
+                            .to.contain('Código de cupom aplicado com sucesso');
+                    }
+                });
+
+            });
     }
+
+
 
 
 }

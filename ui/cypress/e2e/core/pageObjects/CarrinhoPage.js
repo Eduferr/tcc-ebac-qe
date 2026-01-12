@@ -46,6 +46,30 @@ class CarrinhoPage {
         return cy.get('.checkout-button', { timeout: 20000 });
     }
 
+    // Wrapper semântico (AJAX-safe)
+    noticeWrapper() {
+        return cy.get('.woocommerce-notices-wrapper', { timeout: 20000 });
+    }
+
+    // ERRO → sempre <ul><li>
+    couponErrorItem() {
+        return this.noticeWrapper()
+            .find('ul.woocommerce-error > li');
+    }
+
+    // SUCESSO → sempre <div>
+    couponSuccessMessage() {
+        return this.noticeWrapper()
+            .find('div.woocommerce-message');
+    }
+
+    // Valor exibido na mensagem (único!)
+    couponErrorAmount() {
+        return this.couponErrorItem()
+            .find('span.woocommerce-Price-amount.amount');
+    }
+
+
     // =========================
     // Mensagens / feedback
     // =========================
