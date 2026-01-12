@@ -50,17 +50,22 @@ class CarrinhoPage {
     // Mensagens / feedback
     // =========================
     successMessage() {
-        return cy.get('.woocommerce-message', { timeout: 20000 });
+        return cy.get('.woocommerce-notices-wrapper .woocommerce-message', { timeout: 20000 });
     }
 
     errorMessage() {
-        return cy.get('.woocommerce-error', { timeout: 20000 });
+        return cy.get('.woocommerce-notices-wrapper .woocommerce-error', { timeout: 20000 });
     }
 
     // Mensagem genérica (sucesso ou erro) para validar aplicação de cupom
     noticeMessage() {
-        return cy.get('.woocommerce-message, .woocommerce-error', { timeout: 20000 });
+        return cy.get(
+            '.woocommerce-notices-wrapper .woocommerce-message, ' +
+            '.woocommerce-notices-wrapper .woocommerce-error',
+            { timeout: 20000 }
+        );
     }
+
 
     // =========================
     // Valores e cupons
@@ -69,12 +74,18 @@ class CarrinhoPage {
         return cy.get('tr.order-total .woocommerce-Price-amount.amount', { timeout: 20000 });
     }
 
+    couponContainer() {
+        return cy.get('td.actions .coupon', { timeout: 20000 });
+    }
+
     couponInput() {
-        return cy.get('#coupon_code', { timeout: 20000 });
+        return this.couponContainer()
+            .find('input[name="coupon_code"]');
     }
 
     applyCouponButton() {
-        return cy.get('[name="apply_coupon"]', { timeout: 20000 });
+        return this.couponContainer()
+            .find('input[name="apply_coupon"]');
     }
 
     // =========================
