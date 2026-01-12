@@ -2,21 +2,11 @@
 # EBAC Shop – Quality Assurance CI Pipeline
 # Projeto TCC EBAC QE
 # =========================================================
-# Executa testes automatizados de:
-# - UI (Cucumber + Cypress)
-# - API (Cucumber + Supertest)
-# - Performance (k6)
-#
-# Relatórios:
-# - UI e API: Allure
-# - Performance: HTML gerado pelo k6
-# - Todos publicados no GitHub Pages (gh-pages)
-# =========================================================
 
 name: EBAC Shop – Pipeline de Qualidade
 
 permissions:
-  contents: write # necessário para publicar no gh-pages
+  contents: write
 
 on:
   push:
@@ -26,9 +16,9 @@ on:
 jobs:
 
   # ======================================================
-  # UI TESTS - Cucumber + Cypress
+  # UI TESTS - Cypress + Cucumber (CI SAFE)
   # ======================================================
-    ui-tests:
+  ui-tests:
     runs-on: ubuntu-latest
 
     steps:
@@ -41,12 +31,12 @@ jobs:
           node-version: '20'
           cache: 'npm'
 
-      - name: Instalar dependências
+      - name: Instalar dependências (determinístico)
         run: npm ci
 
-      # -------------------------------
-      # Cypress UI Tests (Chrome)
-      # -------------------------------
+      # --------------------------------------------------
+      # EXECUÇÃO CYPRESS (CHROME HEADLESS)
+      # --------------------------------------------------
       - name: Executar testes UI (Cypress + Chrome)
         run: |
           npx cypress run \
@@ -57,9 +47,9 @@ jobs:
           CYPRESS_USER: ${{ secrets.CYPRESS_USER }}
           CYPRESS_PASSWORD: ${{ secrets.CYPRESS_PASSWORD }}
 
-      # -------------------------------
-      # Allure UI
-      # -------------------------------
+      # --------------------------------------------------
+      # ALLURE UI (sempre executa)
+      # --------------------------------------------------
       - name: Gerar relatório Allure UI
         if: always()
         run: npm run report:ui
@@ -80,7 +70,6 @@ jobs:
           publish_dir: allure/ui-tests/ui-report
           destination_dir: ui
 
-
   # ======================================================
   # API TESTS - Cucumber + Supertest
   # ======================================================
@@ -88,34 +77,34 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: '20'
+          cache: 'npm'
 
-      - name: Instalar dependências
-        run: npm install
+      - run: npm ci
 
       - name: Executar testes API
-        continue-on-error: true
         run: npm run test:api
         env:
           BASE_URL: ${{ secrets.BASE_URL }}
           BASIC_AUTH: ${{ secrets.BASIC_AUTH }}
 
       - name: Gerar relatório Allure API
+        if: always()
         run: npm run report:api
 
       - name: Salvar relatório API (Artifact)
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: allure-api-report
           path: allure/api-tests/api-report
 
-      - name: Publica relatório Allure de API no GitHub Pages
+      - name: Publicar relatório API (GitHub Pages)
+        if: always()
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -131,29 +120,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout do repositório
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      # --------------------------------------------------
-      # Permissão para execução dos scripts no Linux
-      # --------------------------------------------------
-      - name: Conceder permissão de execução aos scripts de performance
+      - name: Permissão scripts
         run: chmod +x performance/*.js
 
-      # --------------------------------------------------
-      # Execução dos testes de performance
-      # --------------------------------------------------
-      - name: Executar todos os testes de performance (k6)
+      - name: Executar testes k6
         uses: grafana/k6-action@v0.3.0
         with:
           filename: performance/run.all.js
         env:
           BASE_URL: ${{ secrets.BASE_URL }}
 
-      # --------------------------------------------------
-      # Publicação GitHub Pages – Login
-      # --------------------------------------------------
-      - name: Publicar relatório de performance – Login
+      - name: Publicar relatório – Login
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -161,36 +140,10 @@ jobs:
           publish_dir: performance/reports/login
           destination_dir: performance/login
 
-      # --------------------------------------------------
-      # Publicação GitHub Pages – Produto
-      # --------------------------------------------------
-      - name: Publicar relatório de performance – Produto
+      - name: Publicar relatório – Produto
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
           publish_dir: performance/reports/produto
           destination_dir: performance/produto
-
-      # --------------------------------------------------
-      # Artifacts (backup técnico)
-      # --------------------------------------------------
-      - name: Enviar relatório de performance – Login (Artifact)
-        uses: actions/upload-artifact@v4
-        with:
-          name: k6-performance-login
-          path: performance/reports/login
-
-      - name: Enviar relatório de performance – Produto (Artifact)
-        uses: actions/upload-artifact@v4
-        with:
-          name: k6-performance-produto
-          path: performance/reports/produto
-
-# =========================================================
-# OBSERVAÇÕES FINAIS:
-#
-# - Mobile (Appium) - Não incluso no CI por está configurado para teste em aparelho físico.
-# - Variáveis sensíveis são gerenciadas via GitHub Secrets.
-# - A arquitetura permite fácil expansão futura.
-# =========================================================
