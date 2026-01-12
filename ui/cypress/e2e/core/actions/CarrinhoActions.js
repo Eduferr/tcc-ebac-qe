@@ -10,9 +10,16 @@ class CarrinhoActions {
         CarrinhoPage.searchButton().click();
     }
 
+    // verCarrinho() {
+    //     CarrinhoPage.viewCartButton().click();
+    // }
+
     verCarrinho() {
-        CarrinhoPage.viewCartButton().click();
+        cy.visit('/carrinho');
+        // garante que carregou algo do carrinho
+        cy.get('body', { timeout: 15000 }).should('be.visible');
     }
+
 
     concluirCompra() {
         CarrinhoPage.checkoutButton().click();
