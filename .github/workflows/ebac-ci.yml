@@ -28,7 +28,7 @@ jobs:
   # ======================================================
   # UI TESTS - Cucumber + Cypress
   # ======================================================
-  ui-tests:
+    ui-tests:
     runs-on: ubuntu-latest
 
     steps:
@@ -39,34 +39,47 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+          cache: 'npm'
 
       - name: Instalar dependências
-        run: npm install
+        run: npm ci
 
-      - name: Executar testes UI
-        continue-on-error: true
-        run: npm run test:ui
+      # -------------------------------
+      # Cypress UI Tests (Chrome)
+      # -------------------------------
+      - name: Executar testes UI (Cypress + Chrome)
+        run: |
+          npx cypress run \
+            --browser chrome \
+            --headless
         env:
           BASE_URL: ${{ secrets.BASE_URL }}
           CYPRESS_USER: ${{ secrets.CYPRESS_USER }}
           CYPRESS_PASSWORD: ${{ secrets.CYPRESS_PASSWORD }}
 
+      # -------------------------------
+      # Allure UI
+      # -------------------------------
       - name: Gerar relatório Allure UI
+        if: always()
         run: npm run report:ui
 
       - name: Salvar relatório UI (Artifact)
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: allure-ui-report
           path: allure/ui-tests/ui-report
 
       - name: Publicar relatório UI (GitHub Pages)
+        if: always()
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
           publish_dir: allure/ui-tests/ui-report
           destination_dir: ui
+
 
   # ======================================================
   # API TESTS - Cucumber + Supertest
