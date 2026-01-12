@@ -166,6 +166,7 @@ class CarrinhoActions {
     //     CarrinhoPage.applyCouponButton().click();
     // }
 
+
     aplicarCupom(cupom) {
 
         cy.location('pathname').should('include', '/carrinho');
@@ -184,62 +185,8 @@ class CarrinhoActions {
             });
 
     }
-    aplicarCupom(cupom) {
-
-        cy.location('pathname').should('include', '/carrinho');
-
-        CarrinhoPage.couponContainer()
-            .should('be.visible')
-            .within(() => {
-
-                cy.get('input[name="coupon_code"]')
-                    .clear()
-                    .type(cupom);
-
-                cy.get('input[name="apply_coupon"]')
-                    .should('be.enabled')
-                    .click();
-            });
-
-    }
 
 
-
-    // validarAplicacaoCupom(cupom) {
-    //     CarrinhoPage.noticeMessage()
-    //         .should('be.visible')
-    //         .then(($el) => {
-
-    //             const texto = $el.text();
-
-    //             if ($el.hasClass('woocommerce-message')) {
-    //                 expect(texto).to.contain(
-    //                     'Código de cupom aplicado com sucesso.'
-    //                 );
-    //                 return;
-    //             }
-
-    //             if ($el.hasClass('woocommerce-error')) {
-    //                 if (cupom === 'techugo10') {
-    //                     expect(texto).to.satisfy((msg) =>
-    //                         msg.includes('O valor mínimo do pedido para este cupom é R$200,00') ||
-    //                         msg.includes('O valor máximo que pode ser gasto para este cupom é de R$600,00')
-    //                     );
-    //                     return;
-    //                 }
-    //                 if (cupom === 'techugo15') {
-    //                     expect(texto).to.contain(
-    //                         'O valor mínimo do pedido para este cupom é R$601,00'
-    //                     );
-    //                     return;
-    //                 }
-    //             }
-
-    //             throw new Error(
-    //                 'Mensagem inesperada retornada pelo sistema ao aplicar cupom.'
-    //             );
-    //         });
-    // }
 
     validarAplicacaoCupom(cupom) {
 
