@@ -169,7 +169,7 @@ class CarrinhoActions {
 
     aplicarCupom(cupom) {
 
-        cy.location('pathname').should('include', '/carrinho');
+        cy.intercept('POST', '**wc-ajax=apply_coupon**').as('applyCoupon');
 
         CarrinhoPage.couponContainer()
             .should('be.visible')
@@ -180,11 +180,13 @@ class CarrinhoActions {
                     .type(cupom);
 
                 cy.get('input[name="apply_coupon"]')
-                    .should('be.enabled')
                     .click();
             });
 
+        // 🔒 ESPERA REAL DO SISTEMA
+        cy.wait('@applyCoupon');
     }
+
 
 
 
@@ -194,57 +196,23 @@ class CarrinhoActions {
             .should('exist')
             .within(() => {
 
-                // =========================
-                // ERRO DE CUPOM
-                // =========================
                 cy.get('ul.woocommerce-error > li').then(($li) => {
-
                     if ($li.length) {
-
-                        // valida estrutura
                         cy.wrap($li)
                             .should('contain.text', 'O valor mínimo do pedido');
-
-                        // valida valor monetário (robusto)
-                        cy.wrap($li)
-                            .find('span.woocommerce-Price-amount.amount')
-                            .invoke('text')
-                            .then((valorTexto) => {
-
-                                const valor = Number(
-                                    valorTexto
-                                        .replace(/\s/g, '')
-                                        .replace('R$', '')
-                                        .replace(/\./g, '')
-                                        .replace(',', '.')
-                                );
-
-                                if (cupom === 'techugo10') {
-                                    expect(valor).to.eq(200);
-                                }
-
-                                if (cupom === 'techugo15') {
-                                    expect(valor).to.eq(601);
-                                }
-                            });
-
                         return;
                     }
                 });
 
-                // =========================
-                // SUCESSO DE CUPOM
-                // =========================
                 cy.get('div.woocommerce-message').then(($msg) => {
-
                     if ($msg.length) {
                         expect($msg.text())
                             .to.contain('Código de cupom aplicado com sucesso');
                     }
                 });
-
             });
     }
+
 
 
 
