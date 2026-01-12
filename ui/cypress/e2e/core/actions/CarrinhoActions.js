@@ -25,9 +25,6 @@ class CarrinhoActions {
             .should('exist');
     }
 
-
-
-
     concluirCompra() {
         CarrinhoPage.checkoutButton().click();
     }
@@ -161,13 +158,28 @@ class CarrinhoActions {
     // Cupons de desconto
     // =========================
 
+    // aplicarCupom(cupom) {
+    //     CarrinhoPage.couponInput()
+    //         .clear()
+    //         .type(cupom);
+
+    //     CarrinhoPage.applyCouponButton().click();
+    // }
+
     aplicarCupom(cupom) {
+        cy.location('pathname').should('include', '/carrinho');
+
         CarrinhoPage.couponInput()
+            .should('exist')
+            .should('be.visible')
             .clear()
             .type(cupom);
 
         CarrinhoPage.applyCouponButton().click();
+
+        CarrinhoPage.noticeMessage().should('be.visible');
     }
+
 
     validarAplicacaoCupom(cupom) {
         CarrinhoPage.noticeMessage()
