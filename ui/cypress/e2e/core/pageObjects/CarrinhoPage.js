@@ -38,8 +38,10 @@ class CarrinhoPage {
     // }
 
     checkoutButton() {
-        return cy.get('.checkout-button button alt wc-forward', { timeout: 10000 });
+        return cy.get('.cart_totals')
+            .contains('a', 'Concluir compra', { timeout: 10000 });
     }
+
 
     // =========================
     // Mensagens / feedback
