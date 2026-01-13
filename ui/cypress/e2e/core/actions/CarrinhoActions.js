@@ -11,8 +11,9 @@ class CarrinhoActions {
     }
 
     verCarrinho() {
-        CarrinhoPage.viewCartButton().click();
+        cy.visit('/carrinho');
     }
+
 
     concluirCompra() {
         CarrinhoPage.checkoutButton().click();

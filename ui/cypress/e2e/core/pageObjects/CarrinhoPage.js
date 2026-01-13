@@ -33,9 +33,9 @@ class CarrinhoPage {
         return cy.get('.single_add_to_cart_button');
     }
 
-    viewCartButton() {
-        return cy.get('.woocommerce-message > .button');
-    }
+    // viewCartButton() {
+    //     return cy.get('.woocommerce-message > .button');
+    // }
 
     checkoutButton() {
         return cy.get('.checkout-button');
