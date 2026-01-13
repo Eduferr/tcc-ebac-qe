@@ -30,7 +30,7 @@ class CarrinhoPage {
     // Ações de carrinho
     // =========================
     addToCartButton() {
-        return cy.get('.single_add_to_cart_button'{ timeout: 10000 });
+        return cy.get('.single_add_to_cart_button', { timeout: 10000 });
     }
 
     // viewCartButton() {
@@ -38,18 +38,18 @@ class CarrinhoPage {
     // }
 
     checkoutButton() {
-        return cy.get('.checkout-button button alt wc-forward' { timeout: 10000 });
+        return cy.get('.checkout-button button alt wc-forward', { timeout: 10000 });
     }
 
     // =========================
     // Mensagens / feedback
     // =========================
     successMessage() {
-        return cy.get('.woocommerce .woocommerce-notices-wrapper > .woocommerce-message'{ timeout: 10000 });
+        return cy.get('.woocommerce .woocommerce-notices-wrapper > .woocommerce-message', { timeout: 10000 });
     }
 
     errorMessage() {
-        return cy.get('.woocommerce .woocommerce-notices-wrapper > .woocommerce-error'{ timeout: 10000 });
+        return cy.get('.woocommerce .woocommerce-notices-wrapper > .woocommerce-error', { timeout: 10000 });
     }
 
     // Mensagem genérica (sucesso ou erro) para validar aplicação de cupom
