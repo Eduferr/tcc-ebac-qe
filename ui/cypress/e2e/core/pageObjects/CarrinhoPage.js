@@ -45,17 +45,30 @@ class CarrinhoPage {
     // Mensagens / feedback
     // =========================
     successMessage() {
-        return cy.get('.woocommerce-message');
+        return cy.get('.woocommerce .woocommerce-notices-wrapper > .woocommerce-message');
     }
 
     errorMessage() {
-        return cy.get('.woocommerce-error');
+        return cy.get('.woocommerce .woocommerce-notices-wrapper > .woocommerce-error');
     }
 
     // Mensagem genérica (sucesso ou erro) para validar aplicação de cupom
+    // noticeMessage() {
+    //     return cy.get(
+    //         '.woocommerce .woocommerce-notices-wrapper > .woocommerce-message, ' +
+    //         '.woocommerce .woocommerce-notices-wrapper > .woocommerce-error',
+    //         { timeout: 5000 }
+    //     );
+    // }
+
     noticeMessage() {
-        return cy.get('.woocommerce-message, .woocommerce-error');
+        return cy.get(
+            '.woocommerce .woocommerce-notices-wrapper',
+            { timeout: 10000 }
+        );
     }
+
+
 
     // =========================
     // Valores e cupons
