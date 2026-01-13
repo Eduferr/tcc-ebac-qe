@@ -129,12 +129,26 @@ class CarrinhoActions {
     // =========================
 
     aplicarCupom(cupom) {
+
+        // garantir que está no carrinho
+        cy.url().should('include', '/carrinho');
+
+        // garantir que o form existe (espera o WooCommerce terminar)
+        CarrinhoPage.cartForm().should('be.visible');
+
+        // só agora acessar o input
         CarrinhoPage.couponInput()
+            .should('be.visible')
             .clear()
             .type(cupom);
 
-        CarrinhoPage.applyCouponButton().click();
+        // clicar em aplicar
+        cy.get(
+            'form.woocommerce-cart-form button[name="apply_coupon"], ' +
+            'form.woocommerce-cart-form input[name="apply_coupon"]'
+        ).click();
     }
+
 
     // validarAplicacaoCupom(cupom) {
     //     CarrinhoPage.noticeMessage()

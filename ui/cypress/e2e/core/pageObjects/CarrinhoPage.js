@@ -38,9 +38,18 @@ class CarrinhoPage {
     // }
 
     checkoutButton() {
-        return cy.get('.cart_totals')
+        return cy.get('.wc-proceed-to-checkout')
             .contains('a', 'Concluir compra', { timeout: 10000 });
     }
+
+    cartForm() {
+        return cy.get('form.woocommerce-cart-form', { timeout: 10000 });
+    }
+
+    couponInput() {
+        return this.cartForm().find('input[name="coupon_code"]');
+    }
+
 
 
     // =========================
