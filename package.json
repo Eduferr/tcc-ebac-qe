@@ -23,8 +23,8 @@
     "test:ui": "npm run clean:ui && cypress run",
     "test:api": "npm run clean:api && cucumber-js",
     "test:mob": "npm run clean:mob && npx wdio run ./wdio.conf.js",
-    "test:perf:login": "k6 run ./performance/run.login.js",
-    "test:perf:produto": "k6 run ./performance/run.produto.get.js",
+    "test:perf:login": "k6 run ./performance/run.us005_login.js",
+    "test:perf:produto": "k6 run ./performance/run.us005_produto.get.js",
     "test:perf:all": "npm run test:perf:login && npm run test:perf:produto",
 
     "test:all": "npm run test:ui && npm run test:api && npm run test:mob && npm run test:perf",

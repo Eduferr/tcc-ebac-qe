@@ -34,8 +34,7 @@ class CarrinhoPage {
     }
 
     viewCartButton() {
-        // botão padrão do WooCommerce para "Ver carrinho" costuma ser .wc-forward
-        return cy.get('.woocommerce-message a.wc-forward', { timeout: 2000 });
+        return cy.get('.woocommerce-message > .button');
     }
 
     checkoutButton() {
@@ -65,27 +64,13 @@ class CarrinhoPage {
         return cy.get('tr.order-total .woocommerce-Price-amount.amount');
     }
 
-    // couponInput() {
-    //     return cy.get('#coupon_code');
-    // }
-
     couponInput() {
-        return cy.get('input[placeholder="Coupon code"]', { timeout: 10000 });
+        return cy.get('#coupon_code');
     }
 
     applyCouponButton() {
         return cy.get('[name="apply_coupon"]');
     }
-
-    abrirFormularioCupom() {
-        cy.get('a.showcoupon', { timeout: 10000 })
-            .then($btn => {
-                if ($btn.is(':visible')) {
-                    cy.wrap($btn).click();
-                }
-            });
-    }
-
 
     // =========================
     // Conteúdo de checkout

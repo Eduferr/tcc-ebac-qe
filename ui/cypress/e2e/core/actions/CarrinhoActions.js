@@ -11,19 +11,8 @@ class CarrinhoActions {
     }
 
     verCarrinho() {
-        cy.visit('/carrinho');
-        cy.get('form.woocommerce-cart-form', { timeout: 20000 })
-            .should('be.visible');
+        CarrinhoPage.viewCartButton().click();
     }
-
-    aguardarCarrinhoCarregar() {
-        cy.get('form.woocommerce-cart-form', { timeout: 20000 })
-            .should('be.visible');
-
-        cy.get('.blockUI').should('not.exist');
-    }
-
-
 
     concluirCompra() {
         CarrinhoPage.checkoutButton().click();
@@ -55,7 +44,7 @@ class CarrinhoActions {
     // =========================
     // Fluxos compostos
     // =========================
-
+    
     adicionarProdutos(produtos, posicoes) {
         posicoes.forEach(({ posicao, quantidade }) => {
             if (quantidade <= 0) return;
@@ -138,23 +127,13 @@ class CarrinhoActions {
     // Cupons de desconto
     // =========================
 
-    // aplicarCupom(cupom) {
-    //     CarrinhoPage.couponInput()
-    //         .clear()
-    //         .type(cupom);
-
-    //     CarrinhoPage.applyCouponButton().click();
-    // }
-
     aplicarCupom(cupom) {
-        this.verCarrinho();
-        this.aguardarCarrinhoCarregar();
+        CarrinhoPage.couponInput()
+            .clear()
+            .type(cupom);
 
-        CarrinhoPage.abrirFormularioCupom();
-        CarrinhoPage.preencherCupom(cupom);
-        CarrinhoPage.confirmarCupom();
+        CarrinhoPage.applyCouponButton().click();
     }
-
 
     validarAplicacaoCupom(cupom) {
         CarrinhoPage.noticeMessage()
