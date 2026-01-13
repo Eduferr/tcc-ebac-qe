@@ -26,7 +26,7 @@ Funcionalidade: Carrinho de Compras
     Exemplos:
         | descricao                             | q1 | q2 | q3 |
         | Até R$ 990,00 - Compra válida         | 4  | 6  | 5  |
-        | Acima de R$ 990,00 - Compra inválida  | 4  | 7  | 4  |
+        | Acima de R$ 990,00 - Compra inválida  | 4  | 7  | 5  |
 
 
     Esquema do Cenário: Validar aplicação de cupom 10% no carrinho | <descricao>

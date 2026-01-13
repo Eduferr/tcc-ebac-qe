@@ -34,7 +34,8 @@ class CarrinhoPage {
     }
 
     viewCartButton() {
-        return cy.get('.woocommerce-message > .button');
+        // botão padrão do WooCommerce para "Ver carrinho" costuma ser .wc-forward
+        return cy.get('.woocommerce-message a.wc-forward', { timeout: 2000 });
     }
 
     checkoutButton() {

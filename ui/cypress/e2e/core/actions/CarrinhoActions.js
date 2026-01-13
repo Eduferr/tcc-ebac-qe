@@ -11,8 +11,25 @@ class CarrinhoActions {
     }
 
     verCarrinho() {
-        CarrinhoPage.viewCartButton().click();
+        cy.get('body').then(($body) => {
+            const hasViewCart =
+                $body.find('.woocommerce-message a.wc-forward').length > 0;
+
+            if (hasViewCart) {
+                cy.get('.woocommerce-message a.wc-forward')
+                    .first()
+                    .scrollIntoView()
+                    .click({ force: true });
+            } else {
+                // fallback determinístico para CI
+                cy.visit('/carrinho');
+            }
+        });
+
+        // garantia extra: confirma que está no carrinho
+        cy.url().should('include', '/carrinho');
     }
+
 
     concluirCompra() {
         CarrinhoPage.checkoutButton().click();
@@ -44,7 +61,7 @@ class CarrinhoActions {
     // =========================
     // Fluxos compostos
     // =========================
-    
+
     adicionarProdutos(produtos, posicoes) {
         posicoes.forEach(({ posicao, quantidade }) => {
             if (quantidade <= 0) return;

@@ -82,7 +82,7 @@ class CuponsService {
 
     // Gera código dinâmico quando indicado pela DataTable
     if (data.code === 'DINAMICO') {
-      body.code = gerarCodigoCupom('cupomFerr');
+      body.code = gerarCodigoCupom('cupomEduFerr');
     }
 
     // Preenche os campos conforme informado no cenário
