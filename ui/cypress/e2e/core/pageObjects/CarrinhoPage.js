@@ -77,6 +77,16 @@ class CarrinhoPage {
         return cy.get('[name="apply_coupon"]');
     }
 
+    abrirFormularioCupom() {
+        cy.get('a.showcoupon', { timeout: 10000 })
+            .then($btn => {
+                if ($btn.is(':visible')) {
+                    cy.wrap($btn).click();
+                }
+            });
+    }
+
+
     // =========================
     // Conteúdo de checkout
     // =========================

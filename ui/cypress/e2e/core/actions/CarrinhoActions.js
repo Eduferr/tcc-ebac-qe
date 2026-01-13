@@ -11,24 +11,18 @@ class CarrinhoActions {
     }
 
     verCarrinho() {
-        cy.get('body').then(($body) => {
-            const hasViewCart =
-                $body.find('.woocommerce-message a.wc-forward').length > 0;
-
-            if (hasViewCart) {
-                cy.get('.woocommerce-message a.wc-forward')
-                    .first()
-                    .scrollIntoView()
-                    .click({ force: true });
-            } else {
-                // fallback determinístico para CI
-                cy.visit('/carrinho');
-            }
-        });
-
-        // garantia extra: confirma que está no carrinho
-        cy.url().should('include', '/carrinho');
+        cy.visit('/carrinho');
+        cy.get('form.woocommerce-cart-form', { timeout: 20000 })
+            .should('be.visible');
     }
+
+    aguardarCarrinhoCarregar() {
+        cy.get('form.woocommerce-cart-form', { timeout: 20000 })
+            .should('be.visible');
+
+        cy.get('.blockUI').should('not.exist');
+    }
+
 
 
     concluirCompra() {
@@ -144,13 +138,23 @@ class CarrinhoActions {
     // Cupons de desconto
     // =========================
 
-    aplicarCupom(cupom) {
-        CarrinhoPage.couponInput()
-            .clear()
-            .type(cupom);
+    // aplicarCupom(cupom) {
+    //     CarrinhoPage.couponInput()
+    //         .clear()
+    //         .type(cupom);
 
-        CarrinhoPage.applyCouponButton().click();
+    //     CarrinhoPage.applyCouponButton().click();
+    // }
+
+    aplicarCupom(cupom) {
+        this.verCarrinho();
+        this.aguardarCarrinhoCarregar();
+
+        CarrinhoPage.abrirFormularioCupom();
+        CarrinhoPage.preencherCupom(cupom);
+        CarrinhoPage.confirmarCupom();
     }
+
 
     validarAplicacaoCupom(cupom) {
         CarrinhoPage.noticeMessage()
