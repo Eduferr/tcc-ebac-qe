@@ -65,8 +65,12 @@ class CarrinhoPage {
         return cy.get('tr.order-total .woocommerce-Price-amount.amount');
     }
 
+    // couponInput() {
+    //     return cy.get('#coupon_code');
+    // }
+
     couponInput() {
-        return cy.get('#coupon_code');
+        return cy.get('input[placeholder="Coupon code"]', { timeout: 10000 });
     }
 
     applyCouponButton() {
