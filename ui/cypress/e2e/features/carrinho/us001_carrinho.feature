@@ -29,15 +29,24 @@ Funcionalidade: Carrinho de Compras
         | Acima de R$ 990,00 - Compra inválida  | 4  | 7  | 4  |
 
 
-    Esquema do Cenário: Validar aplicação de cupom no carrinho | <descricao>
+    Esquema do Cenário: Validar aplicação de cupom 10% no carrinho | <descricao>
         Quando adiciona produtos ao carrinho com quantidades <q1>, <q2>, <q3>
         E acessa o carrinho
-        E aplica o cupom de desconto "<cupom>"
-        Então o sistema deve validar a aplicação do cupom "<cupom>"
+        E aplica o cupom de desconto "techugo10"
+        Então o sistema deve validar a aplicação do cupom "techugo10"
     Exemplos:
-        | descricao                                             | q1 | q2 | q3 | cupom     |
-        | Cupom 10% inválido - Valor abaixo de R$ 200           | 1  | 1  | 1  | techugo10 |
-        | Cupom 10% válido - Valor entre R$ 200 e R$ 600        | 2  | 2  | 2  | techugo10 |
-        | Cupom 10% inválido - Valor acima de R$ 600            | 3  | 3  | 4  | techugo10 |
-        | Cupom 15% inválido - Valor igual ou menor que R$ 600  | 3  | 3  | 3  | techugo15 |
-        | Cupom 15% válido - Valor acima de R$ 600              | 3  | 3  | 4  | techugo15 |
+        | descricao                                 | q1 | q2 | q3 |
+        | Inválido para valor abaixo de R$ 200      | 1  | 1  | 1  |
+        | Válido para Valor entre R$ 200 e 600      | 2  | 2  | 2  |
+        | Inválido para valor acima de R$ 600       | 3  | 3  | 4  |
+
+    Esquema do Cenário: Validar aplicação de cupom 15% no carrinho | <descricao>
+        Quando adiciona produtos ao carrinho com quantidades <q1>, <q2>, <q3>
+        E acessa o carrinho
+        E aplica o cupom de desconto "techugo15"
+        Então o sistema deve validar a aplicação do cupom "techugo15"
+    Exemplos:
+        | descricao                                         | q1 | q2 | q3 |
+        | Inválido para valor igual ou menor que R$600      | 3  | 3  | 3  |
+        | Válido para valor acima de R$ 600                 | 3  | 3  | 4  |
+

@@ -11,9 +11,8 @@ class CarrinhoActions {
     }
 
     verCarrinho() {
-        cy.visit('/carrinho');
+        CarrinhoPage.viewCartButton().click();
     }
-
 
     concluirCompra() {
         CarrinhoPage.checkoutButton().click();
@@ -45,7 +44,7 @@ class CarrinhoActions {
     // =========================
     // Fluxos compostos
     // =========================
-
+    
     adicionarProdutos(produtos, posicoes) {
         posicoes.forEach(({ posicao, quantidade }) => {
             if (quantidade <= 0) return;
@@ -129,72 +128,17 @@ class CarrinhoActions {
     // =========================
 
     aplicarCupom(cupom) {
-
-        // garantir que está no carrinho
-        cy.url().should('include', '/carrinho');
-
-        // garantir que o form existe (espera o WooCommerce terminar)
-        CarrinhoPage.cartForm().should('be.visible');
-
-        // só agora acessar o input
         CarrinhoPage.couponInput()
-            .should('be.visible')
             .clear()
             .type(cupom);
 
-        // clicar em aplicar
-        cy.get(
-            'form.woocommerce-cart-form button[name="apply_coupon"], ' +
-            'form.woocommerce-cart-form input[name="apply_coupon"]'
-        ).click();
+        CarrinhoPage.applyCouponButton().click();
     }
 
-
-    // validarAplicacaoCupom(cupom) {
-    //     CarrinhoPage.noticeMessage()
-    //         .should('be.visible')
-    //         .then(($el) => {
-
-    //             const texto = $el.text();
-
-    //             if ($el.hasClass('woocommerce-message')) {
-    //                 expect(texto).to.contain(
-    //                     'Código de cupom aplicado com sucesso.'
-    //                 );
-    //                 return;
-    //             }
-
-    //             if ($el.hasClass('woocommerce-error')) {
-    //                 if (cupom === 'techugo10') {
-    //                     expect(texto).to.satisfy((msg) =>
-    //                         msg.includes('O valor mínimo do pedido para este cupom é R$200,00') ||
-    //                         msg.includes('O valor máximo que pode ser gasto para este cupom é de R$600,00')
-    //                     );
-    //                     return;
-    //                 }
-    //                 if (cupom === 'techugo15') {
-    //                     expect(texto).to.contain(
-    //                         'O valor mínimo do pedido para este cupom é R$601,00'
-    //                     );
-    //                     return;
-    //                 }
-    //             }
-
-    //             throw new Error(
-    //                 'Mensagem inesperada retornada pelo sistema ao aplicar cupom.'
-    //             );
-    //         });
-    // }
-
     validarAplicacaoCupom(cupom) {
-
-        cy.get(
-            '.woocommerce .woocommerce-notices-wrapper .woocommerce-message, ' +
-            '.woocommerce .woocommerce-notices-wrapper .woocommerce-error',
-            { timeout: 10000 }
-        )
+        CarrinhoPage.noticeMessage()
             .should('be.visible')
-            .then($el => {
+            .then(($el) => {
 
                 const texto = $el.text();
 
@@ -206,15 +150,13 @@ class CarrinhoActions {
                 }
 
                 if ($el.hasClass('woocommerce-error')) {
-
                     if (cupom === 'techugo10') {
-                        expect(texto).to.satisfy(msg =>
+                        expect(texto).to.satisfy((msg) =>
                             msg.includes('O valor mínimo do pedido para este cupom é R$200,00') ||
                             msg.includes('O valor máximo que pode ser gasto para este cupom é de R$600,00')
                         );
                         return;
                     }
-
                     if (cupom === 'techugo15') {
                         expect(texto).to.contain(
                             'O valor mínimo do pedido para este cupom é R$601,00'
@@ -228,7 +170,6 @@ class CarrinhoActions {
                 );
             });
     }
-
 
 }
 export default new CarrinhoActions();

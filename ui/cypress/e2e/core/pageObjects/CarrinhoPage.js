@@ -30,56 +30,32 @@ class CarrinhoPage {
     // Ações de carrinho
     // =========================
     addToCartButton() {
-        return cy.get('.single_add_to_cart_button', { timeout: 10000 });
+        return cy.get('.single_add_to_cart_button');
     }
 
-    // viewCartButton() {
-    //     return cy.get('.woocommerce-message > .button');
-    // }
+    viewCartButton() {
+        return cy.get('.woocommerce-message > .button');
+    }
 
     checkoutButton() {
-        return cy.get('.wc-proceed-to-checkout')
-            .contains('a', 'Concluir compra', { timeout: 10000 });
+        return cy.get('.checkout-button');
     }
-
-    cartForm() {
-        return cy.get('form.woocommerce-cart-form', { timeout: 10000 });
-    }
-
-    couponInput() {
-        return this.cartForm().find('input[name="coupon_code"]');
-    }
-
-
 
     // =========================
     // Mensagens / feedback
     // =========================
     successMessage() {
-        return cy.get('.woocommerce .woocommerce-notices-wrapper > .woocommerce-message', { timeout: 10000 });
+        return cy.get('.woocommerce-message');
     }
 
     errorMessage() {
-        return cy.get('.woocommerce .woocommerce-notices-wrapper > .woocommerce-error', { timeout: 10000 });
+        return cy.get('.woocommerce-error');
     }
 
     // Mensagem genérica (sucesso ou erro) para validar aplicação de cupom
-    // noticeMessage() {
-    //     return cy.get(
-    //         '.woocommerce .woocommerce-notices-wrapper > .woocommerce-message, ' +
-    //         '.woocommerce .woocommerce-notices-wrapper > .woocommerce-error',
-    //         { timeout: 5000 }
-    //     );
-    // }
-
     noticeMessage() {
-        return cy.get(
-            '.woocommerce .woocommerce-notices-wrapper',
-            { timeout: 10000 }
-        );
+        return cy.get('.woocommerce-message, .woocommerce-error');
     }
-
-
 
     // =========================
     // Valores e cupons
@@ -89,10 +65,7 @@ class CarrinhoPage {
     }
 
     couponInput() {
-        return cy.get(
-            'form.woocommerce-cart-form input#coupon_code',
-            { timeout: 10000 }
-        );
+        return cy.get('#coupon_code');
     }
 
     applyCouponButton() {
