@@ -39,7 +39,7 @@ O sistema testado é um **e-commerce fictício (EBAC Shop)**, no qual foram defi
 | API                  | Supertest · Cucumber · Chai · Schemas de contrato · Faker · Node. js |
 | Performance          | k6 · Testes de carga                                                 |
 | Mobile               | Cypress · Cucumber                                                   |
-| Relatórios           | Allure Reports (UI, API, Mobile) · Relatórios HTML do k6             |
+| Relatórios           | Allure Reports (UI, API, Mobile) · K6 Relatórios HTML de Performance |
 | DevOps e Apoio       | GitHub Actions · Allure Commandline · Rimraf · HTML · CSS            |
 ```
 ---
