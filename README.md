@@ -33,14 +33,14 @@ O sistema testado é um **e-commerce fictício (EBAC Shop)**, no qual foram defi
 
 ## 🛠️ Tecnologias e Ferramentas Utilizadas
 ```bash
-| Camada / Finalidade  | Tecnologias                                                          |
-| -------------------- | -------------------------------------------------------------------- |
-| **UI e Mobile**      | Cypress · Cucumber · Mocha · Chai · Faker / @faker-js/faker · dotenv |
-| **API**              | Supertest · Cucumber · Chai · Schemas de contrato · Faker · Node. js |
-| **Performance**      | k6 · Testes de carga                                                 |
-| **Mobile**           | Cypress · Cucumber                                                   |
-| **Relatórios**       | Allure Reports (UI, API, Mobile) · Relatórios HTML do k6             |
-| **DevOps e Apoio**   | GitHub Actions · Allure Commandline · Rimraf · HTML · CSS            |
+| Camada / Finalidade  | Tecnologias                                                      |
+| -------------------- | ---------------------------------------------------------------- |
+| UI e Mobile      | Cypress · Cucumber · Mocha · Chai · Faker / @faker-js/faker · dotenv |
+| API              | Supertest · Cucumber · Chai · Schemas de contrato · Faker · Node. js |
+| Performance      | k6 · Testes de carga                                                 |
+| Mobile           | Cypress · Cucumber                                                   |
+| Relatórios       | Allure Reports (UI, API, Mobile) · Relatórios HTML do k6             |
+| DevOps e Apoio   | GitHub Actions · Allure Commandline · Rimraf · HTML · CSS            |
 ```
 ---
 
