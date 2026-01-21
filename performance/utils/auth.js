@@ -8,7 +8,7 @@ export function login(usuario) {
     //console.log('BASE_URL recebida pelo k6:', baseUrl);
     const loginPageUrl = `${baseUrl}/minha-conta/`;
 
-    // 1️⃣ GET da página de login (para obter nonce)
+    // GET da página de login (para obter nonce)
     const loginPageRes = http.get(loginPageUrl);
 
     const pageOk = check(loginPageRes, {
@@ -19,7 +19,7 @@ export function login(usuario) {
         return null;
     }
 
-    // 2️⃣ Extrair nonce do WooCommerce
+    // Extrair nonce do WooCommerce
     const nonceMatch = loginPageRes.body.match(
         /name="woocommerce-login-nonce"\s*value="([^"]+)"/
     );
@@ -30,7 +30,7 @@ export function login(usuario) {
 
     const nonce = nonceMatch[1];
 
-    // 3️⃣ POST de login (form-urlencoded)
+    // POST de login (form-urlencoded)
     const payload = {
         username: usuario.username,
         password: usuario.password,
@@ -53,6 +53,6 @@ export function login(usuario) {
         return null;
     }
 
-    // 4️⃣ Retorna cookies de sessão (WordPress)
+    // Retorna cookies de sessão (WordPress)
     return loginRes.cookies;
 }

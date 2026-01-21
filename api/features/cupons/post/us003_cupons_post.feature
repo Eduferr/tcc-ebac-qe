@@ -2,24 +2,26 @@
 
 Funcionalidade: Serviço de Cupons - EBAC SHOP
 
+    # CT-API-CUPOM-POST-001
     Cenário: Permitir cadastro de cupom com sucesso
         Dado que o admin realiza a requisição com autenticação valida
         Quando realizar o cadastro de um novo cupom
         Então a API deve retornar o cupom criado com sucesso
 
+    # CT-API-CUPOM-POST-002
     Cenário: Não permitir cadastro de cupom com autenticação inválida
         Dado que o admin realiza a requisição com autenticação invalida
         Quando realizar o cadastro de um novo cupom
         Então o cadastro de cupom deve ser bloqueado por autenticação inválida
 
-
+    # CT-API-CUPOM-POST-003
     Cenário: Não permitir cadastro de cupom com nome duplicado
         Dado que o admin realiza a requisição com autenticação valida
         E já existe um cupom cadastrado com o nome "cupom_repetido"
         Quando tentar cadastrar um novo cupom com o mesmo nome "cupom_repetido"
         Então a API deve retornar erro informando que o nome do cupom já existe
 
-
+    # CT-API-CUPOM-POST-004
     Esquema do Cenário: Não permitir cadastro de cupom com dados obrigatórios inválidos - <descricao>
         Dado que o admin realiza a requisição com autenticação valida
         Quando realizar o cadastro de um novo cupom com dados inválidos:

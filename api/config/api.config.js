@@ -9,5 +9,4 @@ const API_CONFIG = {
   auth: process.env.BASIC_AUTH  // Credencial de autenticação básica
 };
 
-
 module.exports = { API_CONFIG };

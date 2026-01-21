@@ -5,6 +5,8 @@ Funcionalidade: Carrinho de Compras
     Contexto:
         Dado que o usuário acessa a página de produtos
 
+    # CT-CARRINHO-001
+    # CT-CARRINHO-002
     Esquema do Cenário: Validar limite de compra de um produto | <descricao>
         Quando adiciona um produto ao carrinho com quantidade <quantidade>
         Então o sistema deve validar o limite de quantidade
@@ -13,11 +15,8 @@ Funcionalidade: Carrinho de Compras
         | Até 10 unidades - Compra válida       | 10         |
         | Mais de 10 unidades - Compra inválida | 11         |
 
-
-    # O boundary testing exato do valor R$ 990,00 não pôde ser realizado em nível de interface Web, 
-    # em razão dos preços fixos do catálogo não permitirem combinações que atinjam exatamente 
-    # o valor limite. Assim, foram adotados testes de fronteira aproximada (near-boundary), 
-    # validando comportamentos imediatamente abaixo e acima do limite definido pela regra de negócio.
+    # CT-CARRINHO-003
+    # CT-CARRINHO-004
     Esquema do Cenário: Validar limite de valor total do carrinho | <descricao>
         Quando adiciona produtos ao carrinho com quantidades <q1>, <q2>, <q3>
         E acessa o carrinho
@@ -29,6 +28,9 @@ Funcionalidade: Carrinho de Compras
         | Acima de R$ 990,00 - Compra inválida  | 4  | 7  | 4  |
 
 
+    # CT-CARRINHO-005
+    # CT-CARRINHO-006
+    # CT-CARRINHO-007
     Esquema do Cenário: Validar aplicação de cupom 10% no carrinho | <descricao>
         Quando adiciona produtos ao carrinho com quantidades <q1>, <q2>, <q3>
         E acessa o carrinho
@@ -41,6 +43,8 @@ Funcionalidade: Carrinho de Compras
         | Inválido para valor acima de R$ 600       | 3  | 3  | 4  |
 
 
+    # CT-CARRINHO-008
+    # CT-CARRINHO-009
     Esquema do Cenário: Validar aplicação de cupom 15% no carrinho | <descricao>
         Quando adiciona produtos ao carrinho com quantidades <q1>, <q2>, <q3>
         E acessa o carrinho

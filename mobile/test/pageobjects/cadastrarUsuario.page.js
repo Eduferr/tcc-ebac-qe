@@ -40,7 +40,6 @@ class CadastroUsuario {
 
     }
 
-
 }
 
 export default new CadastroUsuario();

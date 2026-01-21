@@ -1,7 +1,7 @@
 {
   "name": "ebac-shop-quality-assurance",
   "version": "1.0.0",
-  "description": "ebac-shop-quality-assurance é um projeto de Engenharia de Qualidade desenvolvido no contexto do curso da EBAC, com o objetivo de aplicar boas práticas de garantia da qualidade em um sistema de e-commerce. O projeto contempla testes automatizados web e de API, organizados de forma modular, utilizando Cypress em ambiente Node.js, com foco na validação de regras de negócio, rastreabilidade de requisitos e melhoria contínua da qualidade do software.",
+  "description": "TCC-EBAC-QE é um projeto de Engenharia de Qualidade desenvolvido no contexto do curso da EBAC, com o objetivo de aplicar boas práticas de garantia da qualidade em um sistema de e-commerce. O projeto contempla testes automatizados web e de API, organizados de forma modular, utilizando Cypress em ambiente Node.js, com foco na validação de regras de negócio, rastreabilidade de requisitos e melhoria contínua da qualidade do software.",
   "homepage": "https://https://github.com/Eduferr/tcc-ebac-qe.git#readme",
   "bugs": {
     "url": "https://https://github.com/Eduferr/tcc-ebac-qe.git/issues"
@@ -23,8 +23,8 @@
     "test:ui": "npm run clean:ui && cypress run",
     "test:api": "npm run clean:api && cucumber-js",
     "test:mob": "npm run clean:mob && npx wdio run ./wdio.conf.js",
-    "test:perf:login": "k6 run ./performance/run.us005_login.js",
-    "test:perf:produto": "k6 run ./performance/run.us005_produto.get.js",
+    "test:perf:login": "k6 run ./performance/run.us006_login.js",
+    "test:perf:produto": "k6 run ./performance/run.us007_produto.get.js",
     "test:perf:all": "npm run test:perf:login && npm run test:perf:produto",
 
     "test:all": "npm run test:ui && npm run test:api && npm run test:mob && npm run test:perf",

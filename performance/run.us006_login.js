@@ -1,12 +1,11 @@
 import { loginOptions } from "./config/load.options.js";
 import loginScenario from "./scenarios/us005_auth.login.js";
-
-// IMPORTS OFICIAIS DO k6 (remotos)
 import { htmlReport } from "https://raw.githubusercontent.com/benc-uk/k6-reporter/main/dist/bundle.js";
 import { textSummary } from "https://jslib.k6.io/k6-summary/0.0.4/index.js";
 
 export const options = loginOptions;
 
+// CT-PERF-LOGIN-001 
 export default function () {
     loginScenario();
 }

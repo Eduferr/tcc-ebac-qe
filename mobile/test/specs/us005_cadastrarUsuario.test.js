@@ -3,6 +3,7 @@ import homePage from '../pageobjects/home.page';
 import cadastrarUsuarioPage from '../pageobjects/cadastrarUsuario.page';
 import { faker } from '@faker-js/faker';
 
+// CT-MOBILE-CADASTRO-001
 describe('Funcionalidade Cadastrar Usuário', () => {
 
     let nome = faker.person.firstName()

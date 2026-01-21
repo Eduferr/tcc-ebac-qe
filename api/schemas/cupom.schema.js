@@ -11,4 +11,3 @@ const cupomSchema = {
 
 module.exports = { cupomSchema };
 
-

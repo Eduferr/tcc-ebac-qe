@@ -5,12 +5,13 @@ Funcionalidade: Login de usuário
     Contexto: 
         Dado que o usuário acessa a tela de login
         
-
+    # CT-LOGIN-001
     Cenário: Login com usuário ativo
         Quando realiza login com usuário Válido
         Então o login deve ser realizado com sucesso
 
-
+    # CT-LOGIN-002
+    # CT-LOGIN-003
     Esquema do Cenário: Login com <descricao>
         Quando realiza login com usuário "<usuario>" e senha "<senha>"
         Então deve exibir mensagem de erro de login para o usuário "<usuario>"
@@ -20,12 +21,12 @@ Funcionalidade: Login de usuário
             | usuário inválido | usuario_invalido | senha_invalida |
             | senha inválida   | admin            | senha_invalida |
 
-
+    # CT-LOGIN-004
     Cenário: Sistema não deve bloquear conta com menos de 3 tentativas inválidas
         Quando realiza 2 tentativas de login com usuário "admin" e senha "senha_invalida"
         Então permitir nova tentativa de login
 
-
+    # CT-LOGIN-005
     Cenário: Sistema deve bloquear conta após 3 tentativas inválidas
         Quando realiza 3 tentativas de login com usuário "admin" e senha "senha_invalida"
         E realiza login correto para testar o bloqueio

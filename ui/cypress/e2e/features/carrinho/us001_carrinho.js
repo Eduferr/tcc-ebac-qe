@@ -54,27 +54,26 @@ When('aplica o cupom de desconto {string}', (cupom) => {
 // ---------- Inclusão de produtos com quantidade ----------
 
 When('adiciona um produto ao carrinho com quantidade {int}', function (quantidade) {
-        this.quantidade = quantidade;
+    this.quantidade = quantidade;
 
-        cy.fixture('produtos').then((produtos) => {
-            CarrinhoActions.adicionarProdutos(produtos, [
-                { posicao: 0, quantidade }
-            ]);
-        });
-    }
-);
+    cy.fixture('produtos').then((produtos) => {
+        CarrinhoActions.adicionarProdutos(produtos, [
+            { posicao: 0, quantidade }
+        ]);
+    });
+});
 
 When('adiciona produtos ao carrinho com quantidades {int}, {int}, {int}', (q1, q2, q3) => {
-        const posicoes = [
-            { posicao: 4, quantidade: q1 },
-            { posicao: 5, quantidade: q2 },
-            { posicao: 6, quantidade: q3 }
-        ];
+    const posicoes = [
+        { posicao: 4, quantidade: q1 },
+        { posicao: 5, quantidade: q2 },
+        { posicao: 6, quantidade: q3 }
+    ];
 
-        cy.fixture('produtos').then((produtos) => {
-            CarrinhoActions.adicionarProdutos(produtos, posicoes);
-        });
-    }
+    cy.fixture('produtos').then((produtos) => {
+        CarrinhoActions.adicionarProdutos(produtos, posicoes);
+    });
+}
 );
 
 // ======================================================

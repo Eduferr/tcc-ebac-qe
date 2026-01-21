@@ -15,7 +15,6 @@ class LoginPage{
         await this.email.setValue(email)
         await this.password.setValue(password)
         await this.btnLogin.click()
-    }
-    
+    }    
 }
 export default new LoginPage();

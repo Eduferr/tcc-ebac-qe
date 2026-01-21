@@ -2,17 +2,21 @@
 
 Funcionalidade: Serviço de Cupons - EBAC SHOP
 
+    # CT-API-CUPOM-GET-001
     Cenário: Listar todos os cupons cadastrados
         Dado que o admin realiza a requisição com autenticação valida
         Quando realizar a requisição de listagem de cupons
         Então a API deve retornar a lista de cupons com sucesso
 
+    # CT-API-CUPOM-GET-002
     Cenário: Buscar cupom por ID com sucesso
         Dado que o admin realiza a requisição com autenticação valida
         E existe um cupom previamente cadastrado
         Quando realizar a requisição de consulta de cupom por ID
         Então a API deve retornar os dados do cupom consultado com sucesso
 
+    # CT-API-CUPOM-GET-003
+    # CT-API-CUPOM-GET-004
     Esquema do Cenário: Não permitir acesso à listagem de cupons - <descricao>
         Dado que o admin realiza a requisição com autenticação <tipo_auth>
         Quando realizar a requisição de listagem de cupons

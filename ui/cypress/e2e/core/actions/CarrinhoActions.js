@@ -44,7 +44,7 @@ class CarrinhoActions {
     // =========================
     // Fluxos compostos
     // =========================
-    
+
     adicionarProdutos(produtos, posicoes) {
         posicoes.forEach(({ posicao, quantidade }) => {
             if (quantidade <= 0) return;

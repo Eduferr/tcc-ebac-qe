@@ -50,8 +50,7 @@ Then("o login deve ser realizado com sucesso", () => {
 // Mensagem de erro de login
 Then("deve exibir mensagem de erro de login para o usuário {string}", (usuario) => {
     LoginActions.validarErroLogin(usuario);
-  }
-);
+  });
 
 // Permitir nova tentativa de login
 Then("permitir nova tentativa de login", () => {
