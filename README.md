@@ -43,9 +43,9 @@ Testes Não Funcionais
 | Mobile               | Cypress              | Allure Reports        |
 | Performance          | k6                   | Relatórios HTML do k6 |
 ```
-```bash
-### ⚙️ Ferramentas de DevOps e Apoio
 
+### ⚙️ Ferramentas de DevOps e Apoio
+```bash
 | Ferramenta | Finalidade                             |
 |---------   |----------------------------------------|
 | dotenv     | Gerenciamento de variáveis de ambiente |
