@@ -10,7 +10,7 @@
 // - Evita erros ao tentar executar múltiplos arquivos diretamente no GitHub Actions
 // ======================================================
 
-// Importação dos cenários
+// Importação dos cenários para execução em bloco único
 import './run.us006_login.js';
 import './run.us007_produto.get.js';
 
