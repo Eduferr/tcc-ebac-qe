@@ -15,8 +15,8 @@ Funcionalidade: Carrinho de Compras
         | Até 10 unidades - Compra válida       | 10         |
         | Mais de 10 unidades - Compra inválida | 11         |
 
-    # CT-CARRINHO-003
-    # CT-CARRINHO-004
+    # # CT-CARRINHO-003
+    # # CT-CARRINHO-004
     Esquema do Cenário: Validar limite de valor total do carrinho | <descricao>
         Quando adiciona produtos ao carrinho com quantidades <q1>, <q2>, <q3>
         E acessa o carrinho
@@ -28,9 +28,9 @@ Funcionalidade: Carrinho de Compras
         | Acima de R$ 990,00 - Compra inválida  | 4  | 7  | 4  |
 
 
-    # CT-CARRINHO-005
-    # CT-CARRINHO-006
-    # CT-CARRINHO-007
+    # # CT-CARRINHO-005
+    # # CT-CARRINHO-006
+    # # CT-CARRINHO-007
     Esquema do Cenário: Validar aplicação de cupom 10% no carrinho | <descricao>
         Quando adiciona produtos ao carrinho com quantidades <q1>, <q2>, <q3>
         E acessa o carrinho
