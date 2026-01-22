@@ -23,9 +23,12 @@ O sistema testado é um **e-commerce fictício (EBAC Shop)**, no qual foram defi
 
 ## 🧪 Tipos de Testes Implementados
 
+### 🔹 Testes Funcionais
 - Testes de Interface (UI)
 - Testes de API
 - Testes Mobile
+
+### 🔹 Testes Não Funcionais
 - Testes de Performance
 - Testes Integrados ao CI/CD
 
@@ -35,7 +38,7 @@ O sistema testado é um **e-commerce fictício (EBAC Shop)**, no qual foram defi
 ```bash
 | Camada / Finalidade  | Tecnologias                                                          |
 | -------------------- | -------------------------------------------------------------------- |
-| UI e Mobile          | Cypress · Cucumber · Mocha · Chai · Faker / @faker-js/faker · dotenv |
+| UI e Mobile          | Cypress · Cucumber · Mocha · Chai · Faker · dotenv                   |
 | API                  | Supertest · Cucumber · Chai · Schemas de contrato · Faker · Node. js |
 | Performance          | k6 · Testes de carga                                                 |
 | Mobile               | Cypress · Cucumber                                                   |
