@@ -11,8 +11,8 @@
 // ======================================================
 
 // Importação dos cenários
-import './run.us005_login.js';
-import './run.us005_produto.get.js';
+import './run.us006_login.js';
+import './run.us007_produto.get.js';
 
 // ------------------------------------------------------
 // Função default obrigatória do k6
