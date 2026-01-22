@@ -36,14 +36,25 @@ O sistema testado é um **e-commerce fictício (EBAC Shop)**, no qual foram defi
 
 ## 🛠️ Tecnologias e Ferramentas Utilizadas
 ```bash
-| Camada / Finalidade  | Tecnologias                                                          |
-| -------------------- | -------------------------------------------------------------------- |
-| UI e Mobile          | Cypress · Cucumber · Mocha · Chai · Faker · dotenv                   |
-| API                  | Supertest · Cucumber · Chai · Schemas de contrato · Faker · Node. js |
-| Performance          | k6 · Testes de carga                                                 |
-| Mobile               | Cypress · Cucumber                                                   |
-| Relatórios           | Allure Reports (UI, API, Mobile) · K6 Relatórios HTML de Performance |
-| DevOps e Apoio       | GitHub Actions · Allure Commandline · Rimraf · HTML · CSS            |
+| Camada               | Tecnologias          | Relatórios            |
+| -------------------- | ---------------------|-----------------------|
+| UI e Mobile          | Cypress · Cucumber   | Allure Reports        |
+| API                  | Supertest · Cucumber | Allure Reports        |
+| Mobile               | Cypress              | Allure Reports        |
+| Performance          | k6                   | Relatórios HTML do k6 |
+```
+```bash
+### ⚙️ Ferramentas de DevOps e Apoio
+
+| Ferramenta | Finalidade                             |
+|---------   |----------------------------------------|
+| dotenv     | Gerenciamento de variáveis de ambiente |
+| Faker      | Geração dinâmica de dados de teste     |
+| Mocha      | Framework de execução de testes        |
+| Chai       | Biblioteca de asserções                |
+| esbuild    | Transpilação e otimização de build     |
+| rimraf     | Limpeza de diretórios e artefatos      |
+
 ```
 ---
 
