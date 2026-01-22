@@ -47,7 +47,7 @@ Testes Não Funcionais
 ### ⚙️ Ferramentas de DevOps e Apoio
 ```bash
 | Ferramenta | Finalidade                             |
-|---------   |----------------------------------------|
+|------------|----------------------------------------|
 | dotenv     | Gerenciamento de variáveis de ambiente |
 | Faker      | Geração dinâmica de dados de teste     |
 | Mocha      | Framework de execução de testes        |
