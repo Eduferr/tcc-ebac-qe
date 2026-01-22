@@ -24,13 +24,13 @@ O sistema testado é um **e-commerce fictício (EBAC Shop)**, no qual foram defi
 ## 🧪 Tipos de Testes Implementados
 
 ### 🔹 Testes Funcionais
-- Testes de Interface (UI)
-- Testes de API
-- Testes Mobile
+  - Testes de Interface (UI)
+  - Testes de API
+  - Testes Mobile
 
 ### 🔹 Testes Não Funcionais
-- Testes de Performance
-- Testes Integrados ao CI/CD
+  - Testes de Performance
+  - Testes Integrados ao CI/CD
 
 ---
 
