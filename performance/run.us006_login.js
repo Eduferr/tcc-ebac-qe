@@ -1,5 +1,5 @@
 import { loginOptions } from "./config/load.options.js";
-import loginScenario from "./scenarios/us005_auth.login.js";
+import loginScenario from "./scenarios/us006_auth.login.js";
 import { htmlReport } from "https://raw.githubusercontent.com/benc-uk/k6-reporter/main/dist/bundle.js";
 import { textSummary } from "https://jslib.k6.io/k6-summary/0.0.4/index.js";
 
