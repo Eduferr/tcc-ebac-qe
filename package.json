@@ -1,5 +1,5 @@
 {
-  "name": "ebac-shop-quality-assurance",
+  "name": "tcc-ebac-qe",
   "version": "1.0.0",
   "description": "TCC-EBAC-QE é um projeto de Engenharia de Qualidade desenvolvido no contexto do curso da EBAC, com o objetivo de aplicar boas práticas de garantia da qualidade em um sistema de e-commerce. O projeto contempla testes automatizados web e de API, organizados de forma modular, utilizando Cypress em ambiente Node.js, com foco na validação de regras de negócio, rastreabilidade de requisitos e melhoria contínua da qualidade do software.",
   "homepage": "https://https://github.com/Eduferr/tcc-ebac-qe.git#readme",
