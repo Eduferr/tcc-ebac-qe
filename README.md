@@ -1,4 +1,5 @@
-# TCC-EBAC-QE – Projeto de Qualidade de Software
+# Projeto Prático de QA – Automação de Testes End-to-End
+#### TCC-EBAC-QE – Projeto de Qualidade de Software
 
 ## 📌 Visão Geral
 
